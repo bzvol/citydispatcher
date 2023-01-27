@@ -2,6 +2,8 @@ package hu.kisspd.citydp.model;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class City {
     private int id;
@@ -9,6 +11,15 @@ public class City {
     private final int population;
     private CityType type;
     private double locX, locY;
+
+    private City(int id, String name, int population, CityType type, double locX, double locY) {
+        this.id = id;
+        this.name = name;
+        this.population = population;
+        this.type = type;
+        this.locX = locX;
+        this.locY = locY;
+    }
 
     public City(String name, int population) {
         this.name = name;
@@ -94,5 +105,15 @@ public class City {
         }
 
         return null;
+    }
+
+    public static City fromResultSet(ResultSet rs) throws SQLException {
+        int id = rs.getInt("id");
+        String name = rs.getString("name");
+        int population = rs.getInt("population");
+        CityType type = CityType.fromName(rs.getString("type"));
+        double locX = rs.getDouble("coord_x");
+        double locY = rs.getDouble("coord_y");
+        return new City(id, name, population, type, locX, locY);
     }
 }

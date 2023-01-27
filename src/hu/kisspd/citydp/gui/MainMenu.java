@@ -5,7 +5,7 @@
  */
 package hu.kisspd.citydp.gui;
 
-import hu.kisspd.citydp.GameManager;
+import hu.kisspd.citydp.Shared;
 import hu.kisspd.citydp.MySQLConn;
 import hu.kisspd.citydp.model.City;
 
@@ -20,7 +20,7 @@ public class MainMenu extends JFrame {
     public MainMenu() {
         initComponents();
 
-        GameManager.setMapPanel(jMapPanel);
+        Shared.setMapPanel(jMapPanel);
 
         /* for testing
         City testCity = new City("Budapest", 100000);
@@ -87,7 +87,7 @@ public class MainMenu extends JFrame {
     }// </editor-fold>
 
     private void jMapPanelClickAction(MouseEvent evt) {
-        if (GameManager.isCreatingLine() || !SwingUtilities.isRightMouseButton(evt)) {
+        if (Shared.isCreatingLine() || !SwingUtilities.isRightMouseButton(evt)) {
             return;
         }
 

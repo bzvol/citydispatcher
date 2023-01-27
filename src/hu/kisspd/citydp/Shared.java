@@ -2,7 +2,7 @@ package hu.kisspd.citydp;
 
 import hu.kisspd.citydp.gui.JMapPanel;
 
-public class GameManager {
+public class Shared {
     private static JMapPanel mapPanel;
     private static boolean isCreatingLine = false;
 
@@ -11,7 +11,7 @@ public class GameManager {
     }
 
     public static void setMapPanel(JMapPanel mapPanel) {
-        GameManager.mapPanel = mapPanel;
+        Shared.mapPanel = mapPanel;
     }
 
     public static boolean isCreatingLine() {
@@ -19,6 +19,6 @@ public class GameManager {
     }
 
     public static void setCreatingLine(boolean isCreatingLine) {
-        GameManager.isCreatingLine = isCreatingLine;
+        Shared.isCreatingLine = isCreatingLine;
     }
 }

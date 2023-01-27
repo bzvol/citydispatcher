@@ -22,12 +22,12 @@ public enum VehicleType {
         return displayName;
     }
 
-    public static VehicleType fromString(String s) {
-        if (s == null) {
+    public static VehicleType fromName(String name) {
+        if (name == null) {
             return null;
         }
         for (VehicleType v : VehicleType.values()) {
-            if (s.equalsIgnoreCase(v.name())) {
+            if (name.equalsIgnoreCase(v.name())) {
                 return v;
             }
         }

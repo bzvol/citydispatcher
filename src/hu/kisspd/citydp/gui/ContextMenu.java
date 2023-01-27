@@ -1,6 +1,6 @@
 package hu.kisspd.citydp.gui;
 
-import hu.kisspd.citydp.GameManager;
+import hu.kisspd.citydp.Shared;
 import hu.kisspd.citydp.MySQLConn;
 import hu.kisspd.citydp.model.City;
 import hu.kisspd.citydp.model.CityType;
@@ -16,10 +16,10 @@ class ContextMenu extends JPopupMenu {
 
     public ContextMenu(MouseEvent mouseEvt) {
         this.mouseEvt = mouseEvt;
-        this.mapPanel = GameManager.getMapPanel();
+        this.mapPanel = Shared.getMapPanel();
 
         for (CityType cityType : CityType.values()) {
-            JMenuItem item = new JMenuItem(String.format("%s hozzáadása...", cityType.getDisplayName()));
+            JMenuItem item = new JMenuItem(String.format("%s hozzáadása...", cityType));
             item.addActionListener(evt -> btnAction(cityType));
             add(item);
         }
@@ -57,7 +57,9 @@ class ContextMenu extends JPopupMenu {
         int confirm = JOptionPane.showConfirmDialog(null,
                 "Biztosan törölni akarod a városokat?",
                 "Városok törlése", JOptionPane.YES_NO_OPTION);
-        if (confirm == JOptionPane.YES_OPTION && MySQLConn.runStatement("DELETE FROM settlement")) {
+        if (confirm == JOptionPane.YES_OPTION
+                && MySQLConn.runStatement("DELETE FROM route")
+                && MySQLConn.runStatement("DELETE FROM settlement")) {
             mapPanel.clearCities();
         }
     }

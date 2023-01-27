@@ -1,10 +1,10 @@
 package hu.kisspd.citydp.model;
 
 public enum CityType {
-    CITY("Nagyváros", 30, VehicleType.values()),
-    TOWN("Kisváros", 22,
+    CITY("Nagyváros", 29, VehicleType.values()),
+    TOWN("Kisváros", 23,
             new VehicleType[]{VehicleType.BUS, VehicleType.TRAM, VehicleType.TROLLEY, VehicleType.TRAIN}),
-    VILLAGE("Falu", 15, new VehicleType[]{VehicleType.BUS});
+    VILLAGE("Falu", 17, new VehicleType[]{VehicleType.BUS});
 
     private final String displayName;
     private final int size;
@@ -26,6 +26,10 @@ public enum CityType {
 
     public int getSize() {
         return size;
+    }
+
+    public int getRadius () {
+        return size / 2;
     }
 
     public VehicleType[] getAvailableVehicleTypes() {

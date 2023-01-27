@@ -5,35 +5,34 @@ import hu.kisspd.citydp.Util;
 import hu.kisspd.citydp.model.City;
 import hu.kisspd.citydp.model.CityType;
 import hu.kisspd.citydp.model.Line;
+import hu.kisspd.citydp.model.VehicleType;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.QuadCurve2D;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class JMapPanel extends JPanel {
-    private final ArrayList<City> cities = new ArrayList<>();
-    private final ArrayList<Line> lines = new ArrayList<>();
+    private final HashMap<Integer, City> cities = new HashMap<>();
+    private final HashMap<Integer, Line> lines = new HashMap<>();
 
     public JMapPanel() {
         super();
+
         loadCities();
         loadLines();
+        revalidate();
+        repaint();
     }
 
     private void loadCities() {
         try (ResultSet rs = MySQLConn.runQuery("SELECT * FROM settlement")) {
             while (rs != null && rs.next()) {
-                City city = new City(rs.getString("name"), rs.getInt("population"));
-                city.setId(rs.getInt("id"));
-                String type = rs.getString("type");
-                city.setType(CityType.fromName(type));
-                city.setLocX(rs.getDouble("coord_x"));
-                city.setLocY(rs.getDouble("coord_y"));
-
-                cities.add(city);
-                revalidate();
-                repaint();
+                City city = City.fromResultSet(rs);
+                cities.put(city.getId(), city);
             }
         } catch (Exception e) {
             Util.showError("Hiba történt a városok betöltése közben:", e);
@@ -41,84 +40,106 @@ public class JMapPanel extends JPanel {
     }
 
     private void loadLines() {
-        /*try (ResultSet rs = MySQLConn.runQuery("SELECT * FROM route")) {
-            while
+        try (ResultSet rs = MySQLConn.runQuery("SELECT * FROM route")) {
+            Map<Integer, City> citiesCopy = getCities();
+            while (rs != null && rs.next()) {
+                Line line = Line.fromResultSet(rs, citiesCopy);
+                lines.put(line.getId(), line);
+            }
         } catch (Exception e) {
             Util.showError("Hiba történt a vonalak betöltése közben:", e);
-        }*/ // TODO: implement
+        }
     }
 
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        for (Line line : lines) {
+        ArrayList<Double[]> controlPoints = new ArrayList<>();
+        for (Line line : lines.values()) {
             City cityFrom = line.getCityFrom();
-            int cityFromRadius = cityFrom.getType().getSize() / 2;
-            int x1 = (int) (cityFrom.getLocX() * this.getWidth()) + cityFromRadius;
-            int y1 = (int) (cityFrom.getLocY() * this.getHeight()) + cityFromRadius;
+            int x1 = (int) (cityFrom.getLocX() * this.getWidth());
+            int y1 = (int) (cityFrom.getLocY() * this.getHeight());
 
             City cityTo = line.getCityTo();
-            int cityToRadius = cityTo.getType().getSize() / 2;
-            int x2 = (int) (cityTo.getLocX() * this.getWidth()) + cityToRadius;
-            int y2 = (int) (cityTo.getLocY() * this.getHeight()) + cityToRadius;
+            int x2 = (int) (cityTo.getLocX() * this.getWidth());
+            int y2 = (int) (cityTo.getLocY() * this.getHeight());
 
             Graphics2D g2d = (Graphics2D) g;
-            g2d.setStroke(new BasicStroke(3));
+            g2d.setStroke(new BasicStroke(4));
             g2d.setColor(line.getColor());
-            g2d.drawLine(x1, y1, x2, y2);
+
+            Double[] controlPoint = createControlPoint(x1, y1, x2, y2, controlPoints);
+            controlPoints.add(controlPoint);
+            double controlX = controlPoint[0], controlY = controlPoint[1];
+
+            g2d.draw(new QuadCurve2D.Double(x1, y1, controlX, controlY, x2, y2));
         }
 
         g.setColor(Color.BLACK);
-        for (City city : cities) {
-            int x = (int) (city.getLocX() * this.getWidth());
-            int y = (int) (city.getLocY() * this.getHeight());
+        for (City city : cities.values()) {
+            int radius = city.getType().getRadius();
+            int x = (int) (city.getLocX() * this.getWidth()) - radius;
+            int y = (int) (city.getLocY() * this.getHeight()) - radius;
             int size = city.getType().getSize();
 
             g.fillOval(x, y, size, size);
         }
     }
 
-    public ArrayList<City> getCities() {
-        return new ArrayList<>(cities);
+    private Double[] createControlPoint(double x1, double y1, double x2, double y2,
+                                        ArrayList<Double[]> controlPoints) {
+        double rotate = Math.PI / 2.0 * 3;
+        double angle = (Math.atan2(y2 - y1, x2 - x1) + rotate) % (Math.PI * 2);
+        double length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+        double shift = length / 5.0;
+
+        double controlX = (x1 + x2) / 2.0 + Math.cos(angle) * shift;
+        double controlY = (y1 + y2) / 2.0 + Math.sin(angle) * shift;
+        while (Util.containsArray(controlPoints, new Double[] {controlX, controlY})) {
+            shift *= 1.2;
+            controlX = (x1 + x2) / 2.0 + Math.cos(angle) * shift;
+            controlY = (y1 + y2) / 2.0 + Math.sin(angle) * shift;
+        }
+
+        return new Double[] {controlX, controlY};
     }
 
-    public ArrayList<Line> getLines() {
-        return new ArrayList<>(lines);
+    public Map<Integer, City> getCities() {
+        return Map.copyOf(cities);
+    }
+
+    public Map<Integer, Line> getLines() {
+        return Map.copyOf(lines);
     }
 
     public void clearCities() {
+        lines.clear();
         cities.clear();
         this.revalidate();
         this.repaint();
     }
 
-    public void clearLines() { // TODO: implement menu action
-        lines.clear();
-        this.revalidate();
-        this.repaint();
-    }
-
     public void addCity(City city) {
-        cities.add(city);
+        cities.put(city.getId(), city);
         this.revalidate();
         this.repaint();
     }
 
     public void addLine(Line line) {
-        lines.add(line);
+        lines.put(line.getId(), line);
         this.revalidate();
         this.repaint();
     }
 
     public void removeCity(City city) {
-        cities.remove(city);
+        cities.remove(city.getId());
         this.revalidate();
         this.repaint();
     }
 
     public void removeLine(Line line) {
-        lines.remove(line);
+        lines.remove(line.getId());
         this.revalidate();
         this.repaint();
     }
@@ -126,7 +147,7 @@ public class JMapPanel extends JPanel {
     public City searchNearbyCity(double x, double y) {
         double searchGap = 3.0 / this.getWidth();
 
-        for (City city : cities) {
+        for (City city : cities.values()) {
             double cityX = city.getLocX(), cityY = city.getLocY();
             double distX = Math.abs(cityX - x), distY = Math.abs(cityY - y);
             double citySize = (double) city.getType().getSize() / this.getWidth();

@@ -1,6 +1,6 @@
 package hu.kisspd.citydp.gui;
 
-import hu.kisspd.citydp.GameManager;
+import hu.kisspd.citydp.Shared;
 import hu.kisspd.citydp.MySQLConn;
 import hu.kisspd.citydp.Util;
 import hu.kisspd.citydp.model.City;
@@ -16,7 +16,7 @@ public class CityContextMenu extends JPopupMenu {
 
     public CityContextMenu(City city) {
         this.city = city;
-        this.mapPanel = GameManager.getMapPanel();
+        this.mapPanel = Shared.getMapPanel();
 
         JMenuItem statisticsBtn = new JMenuItem("Statisztika");
         JMenuItem addLineBtn = new JMenuItem("Vonal létrehozása...");
@@ -32,11 +32,11 @@ public class CityContextMenu extends JPopupMenu {
     }
 
     private void addLine() {
-        GameManager.setCreatingLine(true);
+        Shared.setCreatingLine(true);
 
         Line line = Line.fromDialog(this.city);
         if (line == null) {
-            GameManager.setCreatingLine(false);
+            Shared.setCreatingLine(false);
             return;
         }
 
@@ -66,7 +66,7 @@ public class CityContextMenu extends JPopupMenu {
                 }
 
                 mapPanel.removeMouseListener(this);
-                GameManager.setCreatingLine(false);
+                Shared.setCreatingLine(false);
             }
         });
     }

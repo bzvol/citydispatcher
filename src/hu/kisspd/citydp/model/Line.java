@@ -1,7 +1,12 @@
 package hu.kisspd.citydp.model;
 
+import hu.kisspd.citydp.Shared;
+
 import javax.swing.*;
 import java.awt.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Map;
 
 public class Line {
     private int id;
@@ -10,6 +15,15 @@ public class Line {
     private final VehicleType vehicleType;
     private final City from;
     private City to;
+
+    private Line(int id, String name, Color color, VehicleType vehicleType, City from, City to) {
+        this.id = id;
+        this.name = name;
+        this.color = color;
+        this.vehicleType = vehicleType;
+        this.from = from;
+        this.to = to;
+    }
 
     public Line(String name, VehicleType vehicleType, Color color, City from) {
         this.name = name;
@@ -92,5 +106,15 @@ public class Line {
 
     public void setCityTo(City to) {
         this.to = to;
+    }
+
+    public static Line fromResultSet(ResultSet rs, Map<Integer, City> cities) throws SQLException {
+        int id = rs.getInt("id");
+        String name = rs.getString("name");
+        Color color = Color.decode(rs.getString("color"));
+        VehicleType vehicleType = VehicleType.fromName(rs.getString("vehicle_type"));
+        City cityFrom = cities.get(rs.getInt("city_from"));
+        City cityTo = cities.get(rs.getInt("city_to"));
+        return new Line(id, name, color, vehicleType, cityFrom, cityTo);
     }
 }
