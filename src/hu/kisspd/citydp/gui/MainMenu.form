@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form" version="1">
+  <grid id="9f9e7e" layout="grid">
+    <row>
+      <cell>
+        <component id="jMapPanel" class="JMapPanel" preferred-size="959 413">
+          <background type="color" value="153 255 255"/>
+          <mouse-listeners>
+            <listener class="java.awt.event.MouseAdapter" method="mouseClicked" event-class="java.awt.event.MouseEvent" handler="jMapPanelClickAction"/>
+          </mouse-listeners>
+        </component>
+      </cell>
+    </row>
+  </grid>
+</form>
