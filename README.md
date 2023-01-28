@@ -13,11 +13,8 @@ School assignment of Péter Kiss.
 - [x] Migrate local database to MS Azure 01/26
 - [x] Create SQL table for lines 01/26
 - [x] Implement creating lines between cities 01/27
-  - [x] Open a form
-  - [x] Choose color and vehicle type (dependent on the type of departure city)
-  - [x] Click on arrival city to finish creating the line
-- [x] Refactor cities and lines from ArrayList to HashMap
-- [x] Fix cities' locations on screen
+- [x] Refactor cities and lines from ArrayList to HashMap 01/27
+- [x] Fix cities' locations on screen 01/27
 
 ### Working on
 - [ ] Improve line creation
@@ -26,9 +23,9 @@ School assignment of Péter Kiss.
   - [ ] Make line removable
   - [ ] Ask user to choose arrival city in the info label
 - [ ] Add info label to main menu
+- [ ] Refactor JOptionPane.showMessagDialog to Util.showError & Util.showWarning
 
 ### To do
-- [ ] Migrate NetBeans forms to IntelliJ
+- [ ] Migrate NetBeans forms to IntelliJ forms
 - [ ] Fix Ant debug target
-- [ ] Implement statistics form for each city
-- [ ] Refactor JOptionPane.showMessagDialog to Util.showError & Util.showWarning
+- [ ] Implement statistics form for cities
