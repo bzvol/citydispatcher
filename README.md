@@ -29,3 +29,11 @@ School assignment of Péter Kiss.
 - [ ] Migrate NetBeans forms to IntelliJ forms
 - [ ] Fix Ant debug target
 - [ ] Implement statistics form for cities
+
+## Assignment requirements
+- [x] Implement adjacency matrix - *könnyű*
+- [ ] Implement latitude traversal - *közepesen nehéz*
+- [ ] Implement connected graph check - *közepesen nehéz*
+- [ ] Implement Dijkstra's algorithm - *nehéz*
+
+#### Jó éjt Péter. \*_Péter elaludt programozás közben_\*
