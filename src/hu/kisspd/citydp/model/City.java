@@ -1,11 +1,16 @@
 package hu.kisspd.citydp.model;
 
+import hu.kisspd.citydp.AStarSearch;
+import hu.kisspd.citydp.Shared;
+
 import javax.swing.*;
 import java.awt.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Set;
+import java.util.stream.Collectors;
 
-public class City {
+public class City implements AStarSearch.Node<City> {
     private int id;
     private final String name;
     private final int population;
@@ -115,5 +120,23 @@ public class City {
         double locX = rs.getDouble("coord_x");
         double locY = rs.getDouble("coord_y");
         return new City(id, name, population, type, locX, locY);
+    }
+
+    @Override
+    public double x() {
+        return locX;
+    }
+
+    @Override
+    public double y() {
+        return locY;
+    }
+
+    @Override
+    public Set<City> neighbors() {
+        return Shared.getTemporaryLineSet().stream()
+                .filter(line -> line.getCityFrom() == this)
+                .map(Line::getCityTo)
+                .collect(Collectors.toSet());
     }
 }

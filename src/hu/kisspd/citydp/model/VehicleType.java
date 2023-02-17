@@ -1,17 +1,19 @@
 package hu.kisspd.citydp.model;
 
 public enum VehicleType {
-    BUS("Busz"),
-    TRAM("Villamos"),
-    TROLLEY("Troli"),
-    METRO("Metró"),
-    TRAIN("Vonat"),
-    FERRY("Komp");
+    BUS("Busz", 50),
+    TRAM("Villamos", 60),
+    TROLLEY("Troli", 50),
+    METRO("Metró", 80),
+    TRAIN("Vonat", 0b1111000),
+    FERRY("Komp", 20);
 
     private final String displayName;
+    private final int speed;
 
-    VehicleType(String displayName) {
+    VehicleType(String displayName, int speed) {
         this.displayName = displayName;
+        this.speed = speed;
     }
 
     public String getName() {
@@ -20,6 +22,10 @@ public enum VehicleType {
 
     public String getDisplayName() {
         return displayName;
+    }
+
+    public int getSpeed() {
+        return speed;
     }
 
     public static VehicleType fromName(String name) {

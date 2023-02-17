@@ -27,6 +27,10 @@ class ContextMenu extends JPopupMenu {
         JMenuItem clearCities = new JMenuItem("Városok törlése");
         clearCities.addActionListener(this::clearCitiesAction);
         add(clearCities);
+
+        JMenuItem connectedTest = new JMenuItem("Összefüggőség teszt");
+        connectedTest.addActionListener(this::connectedTestAction);
+        add(connectedTest);
     }
 
     private void btnAction(CityType cityType) {
@@ -62,5 +66,12 @@ class ContextMenu extends JPopupMenu {
                 && MySQLConn.runStatement("DELETE FROM settlement")) {
             mapPanel.clearCities();
         }
+    }
+
+    private void connectedTestAction(ActionEvent evt) {
+        boolean isFullConnected = Shared.isFullConnected();
+        JOptionPane.showMessageDialog(null,
+                String.format("A városok gráfja %sösszefüggő.", isFullConnected ? "" : "nem "),
+                "Összefüggőség teszt", JOptionPane.INFORMATION_MESSAGE);
     }
 }
