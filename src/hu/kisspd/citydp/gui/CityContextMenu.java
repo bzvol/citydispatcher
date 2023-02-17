@@ -1,7 +1,7 @@
 package hu.kisspd.citydp.gui;
 
-import hu.kisspd.citydp.Shared;
 import hu.kisspd.citydp.MySQLConn;
+import hu.kisspd.citydp.Shared;
 import hu.kisspd.citydp.Util;
 import hu.kisspd.citydp.model.City;
 import hu.kisspd.citydp.model.Line;
@@ -9,7 +9,6 @@ import hu.kisspd.citydp.model.Line;
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @SuppressWarnings("DuplicatedCode")
@@ -85,7 +84,7 @@ public class CityContextMenu extends JPopupMenu {
         String stmt = String.format("DELETE FROM settlement WHERE name = '%s'", city.getName());
         if (confirm == JOptionPane.YES_OPTION &&
                 MySQLConn.runStatement(stmt)) {
-             mapPanel.removeCity(city);
+            mapPanel.removeCity(city);
         }
     }
 
@@ -106,15 +105,14 @@ public class CityContextMenu extends JPopupMenu {
 
                 var path = Shared.shortestPath(cityFrom, cityTo);
 
-                // debug
+                // TODO: visualize the path
                 if (path == null) {
                     System.out.println("No path found");
-                    return;
+                } else {
+                    var cityNames = StreamSupport.stream(path.spliterator(), false)
+                            .map(City::getName).toList();
+                    System.out.println("Path: " + String.join(" -> ", cityNames));
                 }
-
-                var cityNames = StreamSupport.stream(path.spliterator(), false)
-                        .map(City::getName).toList();
-                System.out.println("Path: " + String.join(" -> ", cityNames));
 
                 mapPanel.removeMouseListener(this);
                 Shared.setCreatingLine(false);

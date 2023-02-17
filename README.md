@@ -21,19 +21,19 @@ School assignment of Péter Kiss.
   - [x] Make line curved and stackable
   - [x] Load lines from database on startup
   - [ ] Make line removable
-  - [ ] Ask user to choose arrival city in the info label
-- [ ] Add info label to main menu
-- [ ] Refactor JOptionPane.showMessagDialog to Util.showError & Util.showWarning
+  - [ ] Ask user to choose arrival city
 
 ### To do
+- [ ] Refactor JOptionPane.showMessagDialog to Util.showError & Util.showWarning
+- [ ] Add info label to main menu
 - [ ] Migrate NetBeans forms to IntelliJ forms
 - [ ] Fix Ant debug target
 - [ ] Implement statistics form for cities
 
 ## Assignment requirements
-- [x] Implement adjacency matrix - *könnyű*
-- [ ] Implement latitude traversal - *közepesen nehéz*
-- [ ] Implement connected graph check - *közepesen nehéz*
-- [ ] Implement Dijkstra's algorithm - *nehéz*
+- [x] Implement adjacency matrix
+- [x] ~~Implement latitude traversal~~
+- [x] Implement connected graph test
+- [x] Implement Dijkstra's algorithm - *implemented A\* instead*
 
 #### Jó éjt Péter. \*_Péter elaludt programozás közben_\*

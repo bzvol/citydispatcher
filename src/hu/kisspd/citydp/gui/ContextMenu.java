@@ -69,7 +69,7 @@ class ContextMenu extends JPopupMenu {
     }
 
     private void connectedTestAction(ActionEvent evt) {
-        boolean isFullConnected = Shared.isFullConnected();
+        boolean isFullConnected = Shared.connectedGraphTest();
         JOptionPane.showMessageDialog(null,
                 String.format("A városok gráfja %sösszefüggő.", isFullConnected ? "" : "nem "),
                 "Összefüggőség teszt", JOptionPane.INFORMATION_MESSAGE);

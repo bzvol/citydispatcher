@@ -5,7 +5,6 @@ import hu.kisspd.citydp.model.City;
 import hu.kisspd.citydp.model.Line;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Shared {
     private static JMapPanel mapPanel;
@@ -60,7 +59,7 @@ public class Shared {
         return matrix;
     }
 
-    public static boolean isFullConnected() { // Latitude travelsal
+    public static boolean connectedGraphTest() { // Latitude travelsal
         var cities = Shared.getMapPanel().getCities();
         var lines = Shared.getMapPanel().getLines();
         var indexes = cities.keySet().toArray(new Integer[0]);
