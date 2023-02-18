@@ -9,6 +9,8 @@ import java.util.*;
 public class Shared {
     private static JMapPanel mapPanel;
     private static boolean isCreatingLine = false;
+
+    private static Set<City> temporaryCitySet = new HashSet<>();
     private static Set<Line> temporaryLineSet = new HashSet<>();
 
     public static JMapPanel getMapPanel() {
@@ -25,6 +27,14 @@ public class Shared {
 
     public static void setCreatingLine(boolean isCreatingLine) {
         Shared.isCreatingLine = isCreatingLine;
+    }
+
+    public static Set<City> getTemporaryCitySet() {
+        return temporaryCitySet;
+    }
+
+    public static void setTemporaryCitySet(Set<City> temporaryCitySet) {
+        Shared.temporaryCitySet = temporaryCitySet;
     }
 
     public static Set<Line> getTemporaryLineSet() {
@@ -85,7 +95,7 @@ public class Shared {
         return seen.size() == expectedSize;
     }
 
-    public static Iterable<City> shortestPath(City start, City goal) {
+    public static List<City> shortestPath(City start, City goal) {
         setTemporaryLineSet(new HashSet<>(getMapPanel().getLines().values()));
 
         var nodes = new HashSet<>(getMapPanel().getCities().values());

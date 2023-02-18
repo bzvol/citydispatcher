@@ -22,13 +22,6 @@ public class MainMenu extends JFrame {
 
         Shared.setMapPanel(jMapPanel);
 
-        /* for testing
-        City testCity = new City("Budapest", 100000);
-        testCity.setLocX(0.5);
-        testCity.setLocY(0.5);
-        jMapPanel.addCity(testCity);
-        end of testing */
-
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent evt) {

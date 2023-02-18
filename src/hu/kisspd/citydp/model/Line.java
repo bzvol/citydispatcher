@@ -1,12 +1,17 @@
 package hu.kisspd.citydp.model;
 
+import com.google.gson.JsonObject;
 import hu.kisspd.citydp.Shared;
+import hu.kisspd.citydp.Util;
 
 import javax.swing.*;
 import java.awt.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Stream;
 
 public class Line {
     private int id;
@@ -30,6 +35,30 @@ public class Line {
         this.vehicleType = vehicleType;
         this.color = color;
         this.from = from;
+    }
+
+    public static Line fromJson(JsonObject json) {
+        int id = json.get("id").getAsInt();
+        String name = json.get("name").getAsString();
+        Color color = Color.decode(json.get("color").getAsString());
+        VehicleType vehicleType = VehicleType.fromName(json.get("vehicle_type").getAsString());
+
+        var cities = Shared.getTemporaryCitySet().stream();
+        City cityFrom = cities.filter((c) -> c.getId() == json.get("city_from").getAsInt()).findFirst().orElseThrow();
+        City cityTo = cities.filter((c) -> c.getId() == json.get("city_to").getAsInt()).findFirst().orElseThrow();
+
+        return new Line(id, name, color, vehicleType, cityFrom, cityTo);
+    }
+
+    public JsonObject toJson() {
+        JsonObject json = new JsonObject();
+        json.addProperty("id", id);
+        json.addProperty("name", name);
+        json.addProperty("color", Util.toHex(color));
+        json.addProperty("vehicle_type", vehicleType.getName());
+        json.addProperty("city_from", from.getId());
+        json.addProperty("city_to", to.getId());
+        return json;
     }
 
     public static Line fromDialog(City cityFrom) {

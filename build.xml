@@ -7,6 +7,7 @@
     <path id="classpath">
         <fileset dir="lib">
             <include name="mysql-connector-j-*.jar"/>
+            <include name="gson-*.jar"/>
         </fileset>
     </path>
 

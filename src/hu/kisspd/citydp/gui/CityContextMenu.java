@@ -9,6 +9,7 @@ import hu.kisspd.citydp.model.Line;
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.stream.StreamSupport;
 
 @SuppressWarnings("DuplicatedCode")
@@ -105,13 +106,10 @@ public class CityContextMenu extends JPopupMenu {
 
                 var path = Shared.shortestPath(cityFrom, cityTo);
 
-                // TODO: visualize the path
                 if (path == null) {
-                    System.out.println("No path found");
+                    Util.showWarning("Nem található útvonal a két város között!");
                 } else {
-                    var cityNames = StreamSupport.stream(path.spliterator(), false)
-                            .map(City::getName).toList();
-                    System.out.println("Path: " + String.join(" -> ", cityNames));
+                    mapPanel.setAStarPath(path);
                 }
 
                 mapPanel.removeMouseListener(this);

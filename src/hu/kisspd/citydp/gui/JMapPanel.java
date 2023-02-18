@@ -13,11 +13,15 @@ import java.awt.geom.QuadCurve2D;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class JMapPanel extends JPanel {
+public class
+JMapPanel extends JPanel {
     private final HashMap<Integer, City> cities = new HashMap<>();
     private final HashMap<Integer, Line> lines = new HashMap<>();
+
+    private List<City> aStarPath = null;
 
     public JMapPanel() {
         super();
@@ -55,6 +59,8 @@ public class JMapPanel extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
+        Graphics2D g2d = (Graphics2D) g;
+
         ArrayList<Double[]> controlPoints = new ArrayList<>();
         for (Line line : lines.values()) {
             City cityFrom = line.getCityFrom();
@@ -65,7 +71,6 @@ public class JMapPanel extends JPanel {
             int x2 = (int) (cityTo.getLocX() * this.getWidth());
             int y2 = (int) (cityTo.getLocY() * this.getHeight());
 
-            Graphics2D g2d = (Graphics2D) g;
             g2d.setStroke(new BasicStroke(4));
             g2d.setColor(line.getColor());
 
@@ -84,6 +89,27 @@ public class JMapPanel extends JPanel {
             int size = city.getType().getSize();
 
             g.fillOval(x, y, size, size);
+        }
+
+        if (aStarPath != null) {
+            for (int i = 0; i < aStarPath.size() - 1; i++) {
+                Stroke dashed = new BasicStroke(2, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL,
+                        0, new float[]{9}, 0);
+
+                g2d.setStroke(dashed);
+                g2d.setColor(Color.RED);
+
+                City cityFrom = aStarPath.get(i);
+                int x1 = (int) (cityFrom.getLocX() * this.getWidth());
+                int y1 = (int) (cityFrom.getLocY() * this.getHeight());
+
+                City cityTo = aStarPath.get(i + 1);
+                int x2 = (int) (cityTo.getLocX() * this.getWidth());
+                int y2 = (int) (cityTo.getLocY() * this.getHeight());
+
+                g2d.drawLine(x1, y1, x2, y2);
+            }
+            aStarPath = null;
         }
     }
 
@@ -140,6 +166,16 @@ public class JMapPanel extends JPanel {
 
     public void removeLine(Line line) {
         lines.remove(line.getId());
+        this.revalidate();
+        this.repaint();
+    }
+
+    /*public List<City> getAStarPath() {
+        return aStarPath;
+    }*/
+
+    public void setAStarPath(List<City> aStarPath) {
+        this.aStarPath = new ArrayList<>(aStarPath);
         this.revalidate();
         this.repaint();
     }

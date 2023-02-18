@@ -1,5 +1,6 @@
 package hu.kisspd.citydp.gui;
 
+import hu.kisspd.citydp.JsonSaver;
 import hu.kisspd.citydp.Shared;
 import hu.kisspd.citydp.MySQLConn;
 import hu.kisspd.citydp.model.City;
@@ -31,6 +32,10 @@ class ContextMenu extends JPopupMenu {
         JMenuItem connectedTest = new JMenuItem("Összefüggőség teszt");
         connectedTest.addActionListener(this::connectedTestAction);
         add(connectedTest);
+
+        JMenuItem saveData = new JMenuItem("Adatok mentése");
+        saveData.addActionListener(this::saveDataAction);
+        add(saveData);
     }
 
     private void btnAction(CityType cityType) {
@@ -73,5 +78,32 @@ class ContextMenu extends JPopupMenu {
         JOptionPane.showMessageDialog(null,
                 String.format("A városok gráfja %sösszefüggő.", isFullConnected ? "" : "nem "),
                 "Összefüggőség teszt", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void saveDataAction(ActionEvent evt) {
+    	JFileChooser folderChooser = new JFileChooser();
+        folderChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        int result = folderChooser.showOpenDialog(null);
+        if (result != JFileChooser.APPROVE_OPTION) {
+            return;
+        }
+
+        String folderPath = folderChooser.getSelectedFile().getAbsolutePath();
+        if (!folderPath.endsWith("/")) {
+            folderPath += "/";
+        }
+
+        String fileName = JOptionPane.showInputDialog(
+                null,
+                "Fájl neve:", "Adatok mentése",
+                JOptionPane.QUESTION_MESSAGE);
+
+        if (fileName == null || fileName.isEmpty()) {
+            return;
+        }
+        fileName = fileName.trim() + ".json";
+
+        String filePath = folderPath + fileName;
+        JsonSaver.saveData(filePath);
     }
 }

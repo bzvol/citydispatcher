@@ -32,7 +32,7 @@ public class AStarSearch<T extends AStarSearch.Node<T>> {
         return a.distance(b) + b.distance(goal);
     }
 
-    public Iterable<T> search() {
+    public List<T> search() {
         List<T> path = new ArrayList<>();
         T current = start;
 

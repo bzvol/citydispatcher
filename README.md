@@ -21,7 +21,10 @@ School assignment of Péter Kiss.
   - [x] Make line curved and stackable
   - [x] Load lines from database on startup
   - [ ] Make line removable
-  - [ ] Ask user to choose arrival city
+  - [ ] Ask user to choose arrival city **on a label**
+- [ ] Implement data saving & loading
+  - [x] Implement json saving
+  - [ ] Implement json loading
 
 ### To do
 - [ ] Refactor JOptionPane.showMessagDialog to Util.showError & Util.showWarning
@@ -29,11 +32,10 @@ School assignment of Péter Kiss.
 - [ ] Migrate NetBeans forms to IntelliJ forms
 - [ ] Fix Ant debug target
 - [ ] Implement statistics form for cities
+- [ ] Add game templates e.g. map of Hungary - border + larger cities
 
 ## Assignment requirements
 - [x] Implement adjacency matrix
 - [x] ~~Implement latitude traversal~~
 - [x] Implement connected graph test
 - [x] Implement Dijkstra's algorithm - *implemented A\* instead*
-
-#### Jó éjt Péter. \*_Péter elaludt programozás közben_\*

@@ -1,5 +1,6 @@
 package hu.kisspd.citydp.model;
 
+import com.google.gson.JsonObject;
 import hu.kisspd.citydp.AStarSearch;
 import hu.kisspd.citydp.Shared;
 
@@ -30,6 +31,27 @@ public class City implements AStarSearch.Node<City> {
         this.name = name;
         this.population = population;
         this.type = CityType.CITY;
+    }
+
+    public static City fromJson(JsonObject json) {
+        int id = json.get("id").getAsInt();
+        String name = json.get("name").getAsString();
+        int population = json.get("population").getAsInt();
+        CityType type = CityType.fromName(json.get("type").getAsString());
+        double locX = json.get("coord_x").getAsDouble();
+        double locY = json.get("coord_y").getAsDouble();
+        return new City(id, name, population, type, locX, locY);
+    }
+
+    public JsonObject toJson() {
+        JsonObject json = new JsonObject();
+        json.addProperty("id", id);
+        json.addProperty("name", name);
+        json.addProperty("population", population);
+        json.addProperty("type", type.getName());
+        json.addProperty("coord_x", locX);
+        json.addProperty("coord_y", locY);
+        return json;
     }
 
     public int getId() {
