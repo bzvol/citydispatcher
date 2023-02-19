@@ -9,8 +9,6 @@ import hu.kisspd.citydp.model.Line;
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.stream.StreamSupport;
 
 @SuppressWarnings("DuplicatedCode")
 public class CityContextMenu extends JPopupMenu {
@@ -62,7 +60,7 @@ public class CityContextMenu extends JPopupMenu {
 
                 String stmt = String.format("INSERT INTO route (name, vehicle_type, color, city_from, city_to) " +
                                 "VALUES ('%s', '%s', '%s', %d, %d)",
-                        line.getName(), line.getVehicleType().getName(), Util.toHex(line.getColor()),
+                        line.getName(), line.getVehicleType().getName(), Util.hexString(line.getColor()),
                         line.getCityFrom().getId(), line.getCityTo().getId());
 
                 int id;

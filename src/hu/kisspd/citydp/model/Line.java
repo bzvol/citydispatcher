@@ -8,10 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
-import java.util.stream.Stream;
 
 public class Line {
     private int id;
@@ -54,7 +51,7 @@ public class Line {
         JsonObject json = new JsonObject();
         json.addProperty("id", id);
         json.addProperty("name", name);
-        json.addProperty("color", Util.toHex(color));
+        json.addProperty("color", Util.hexString(color));
         json.addProperty("vehicle_type", vehicleType.getName());
         json.addProperty("city_from", from.getId());
         json.addProperty("city_to", to.getId());

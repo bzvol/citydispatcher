@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Util {
-    public static String toHex(Color color) {
+    public static String hexString(Color color) {
         return String.format("#%06X", (color.getRGB() & 0xFFFFFF));
     }
 
@@ -32,15 +32,20 @@ public class Util {
     }
 
     public static <T> boolean containsArray(ArrayList<T[]> list, T[] item) {
-        for (T[] i : list) {
-            if (Arrays.equals(i, item)) {
-                return true;
-            }
-        }
-        return false;
+        return list.stream().anyMatch(i -> Arrays.equals(i, item));
     }
 
     public static int[] centerText(int x, int y, String text, FontMetrics fm) {
         return new int[]{x - fm.stringWidth(text) / 2, y + fm.getHeight() / 2};
+
+        // TODO: respect font transform!!!
+    }
+
+    public static int[] lerpPoint(int[] a, int[] b, float t) {
+        return new int[]{(int) (a[0] + (b[0] - a[0]) * t), (int) (a[1] + (b[1] - a[1]) * t)};
+    }
+
+    public static double[] lerpPoint(double[] a, double[] b, float t) {
+        return new double[]{a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t};
     }
 }

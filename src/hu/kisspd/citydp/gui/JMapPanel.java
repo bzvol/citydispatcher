@@ -7,6 +7,7 @@ import hu.kisspd.citydp.model.Line;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.font.TextAttribute;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.QuadCurve2D;
 import java.sql.ResultSet;
@@ -85,16 +86,8 @@ public class JMapPanel extends JPanel {
 
             g2d.draw(new QuadCurve2D.Double(x1, y1, controlX, controlY, x2, y2));
 
-            // draw an arrow string (->) on the control point, angled to the direction of the line
-            double angle = Math.atan2(y2 - y1, x2 - x1);
-            Font font = new Font("JetBrains Mono", Font.PLAIN, 30);
-            AffineTransform affineTransform = new AffineTransform();
-            affineTransform.rotate(angle, 0, 0);
-            Font rotatedFont = font.deriveFont(affineTransform);
-            g2d.setFont(rotatedFont);
-            g2d.setColor(Color.BLACK);
-            int[] centeredPos = Util.centerText((int) controlX, (int) controlY, "->", g2d.getFontMetrics(rotatedFont));
-            g2d.drawString("->", centeredPos[0], centeredPos[1]);
+            drawLineArrow(new int[] {x1, y1}, new int[] {(int) controlX, (int) controlY},
+                    new int[] {x2, y2}, g2d);
         }
 
         g.setColor(Color.BLACK);
@@ -145,6 +138,35 @@ public class JMapPanel extends JPanel {
         }
 
         return new Double[] {controlX, controlY};
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    private void drawLineArrow(int[] p1, int[] controlPoint, int[] p2, Graphics2D g2d) {
+        int[] arrowPos = Util.lerpPoint(Util.lerpPoint(p1, controlPoint, 0.5f), Util.lerpPoint(controlPoint, p2, 0.5f), 0.5f);
+
+        Font font = new Font("JetBrains Mono", Font.BOLD, 24);
+
+        Map attributes = font.getAttributes();
+        attributes.put(TextAttribute.LIGATURES, TextAttribute.LIGATURES_ON);
+        Font fontWithLigatures = font.deriveFont(attributes);
+
+        int x1 = p1[0], y1 = p1[1], x2 = p2[0], y2 = p2[1];
+        double angle = Math.atan2(y2 - y1, x2 - x1);
+        AffineTransform affineTransform = new AffineTransform();
+        affineTransform.rotate(angle, 0, 0);
+
+        Font rotatedFont = fontWithLigatures.deriveFont(affineTransform);
+        g2d.setFont(rotatedFont);
+        g2d.setColor(Color.BLACK);
+
+        int[] centeredPos = Util.centerText(arrowPos[0], arrowPos[1], "0A0A", g2d.getFontMetrics(rotatedFont));
+        g2d.drawString("0A0A", centeredPos[0], centeredPos[1]);
+        // draw a little red dot on the pos
+        g2d.setColor(Color.RED);
+        g2d.fillOval(centeredPos[0] - 5, centeredPos[1] - 5, 10, 10);
+        // on lerped pos
+        g2d.setColor(Color.BLUE);
+        g2d.fillOval(arrowPos[0] - 5, arrowPos[1] - 5, 10, 10);
     }
 
     public Map<Integer, City> getCities() {
