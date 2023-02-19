@@ -1,7 +1,7 @@
 package hu.kisspd.citydp;
 
 import javax.swing.*;
-import java.awt.Color;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -29,5 +29,9 @@ public class Util {
             }
         }
         return false;
+    }
+
+    public static int[] centerText(int x, int y, String text, FontMetrics fm) {
+        return new int[]{x - fm.stringWidth(text) / 2, y + fm.getHeight() / 2};
     }
 }

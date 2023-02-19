@@ -82,8 +82,9 @@ class ContextMenu extends JPopupMenu {
 
     public void saveDataAction(ActionEvent evt) {
     	JFileChooser folderChooser = new JFileChooser();
+        folderChooser.setDialogTitle("Adatok mentése");
         folderChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        int result = folderChooser.showOpenDialog(null);
+        int result = folderChooser.showSaveDialog(null);
         if (result != JFileChooser.APPROVE_OPTION) {
             return;
         }

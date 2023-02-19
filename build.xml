@@ -8,6 +8,7 @@
         <fileset dir="lib">
             <include name="mysql-connector-j-*.jar"/>
             <include name="gson-*.jar"/>
+            <include name="forms_rt.jar"/>
         </fileset>
     </path>
 

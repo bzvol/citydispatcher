@@ -6,7 +6,7 @@ package hu.kisspd.citydp.gui;
 
 import hu.kisspd.citydp.MySQLConn;
 
-import java.sql.ResultSet;
+import java.awt.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
@@ -15,42 +15,42 @@ public class Register extends javax.swing.JFrame {
         initComponents();
     }
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
 
-        jNameLabel = new javax.swing.JLabel();
-        jPasswordLabel = new javax.swing.JLabel();
-        jPasswordVerifyLabel = new javax.swing.JLabel();
-        jInfoLabel = new javax.swing.JLabel();
-        jInsertButton = new javax.swing.JButton();
-        jBackButton = new javax.swing.JButton();
-        jNameField = new javax.swing.JTextField();
-        jPasswordField = new javax.swing.JPasswordField();
-        jPasswordVerifyField = new javax.swing.JPasswordField();
+        JLabel nameLabel = new JLabel();
+        JLabel passwordLabel = new JLabel();
+        JLabel passwordVerifyLabel = new JLabel();
+        infoLabel = new javax.swing.JLabel();
+        JButton insertBtn = new JButton();
+        JButton backBtn = new JButton();
+        nameField = new javax.swing.JTextField();
+        passwordField = new javax.swing.JPasswordField();
+        passwordVerifyField = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jNameLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jNameLabel.setText("Név:");
+        nameLabel.setFont(new java.awt.Font("Segoe UI", Font.PLAIN, 18)); // NOI18N
+        nameLabel.setText("Név:");
 
-        jPasswordLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jPasswordLabel.setText("Jelszó:");
+        passwordLabel.setFont(new java.awt.Font("Segoe UI", Font.PLAIN, 18)); // NOI18N
+        passwordLabel.setText("Jelszó:");
 
-        jPasswordVerifyLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jPasswordVerifyLabel.setText("Jelszó ismétlés:");
+        passwordVerifyLabel.setFont(new java.awt.Font("Segoe UI", Font.PLAIN, 18)); // NOI18N
+        passwordVerifyLabel.setText("Jelszó ismétlés:");
 
-        jInfoLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jInfoLabel.setText("Info:");
+        infoLabel.setFont(new java.awt.Font("Segoe UI", Font.PLAIN, 18)); // NOI18N
+        infoLabel.setText("Info:");
 
-        jInsertButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jInsertButton.setText("Felvétel");
-        jInsertButton.addActionListener(this::insertAction);
+        insertBtn.setFont(new java.awt.Font("Segoe UI", Font.PLAIN, 18)); // NOI18N
+        insertBtn.setText("Felvétel");
+        insertBtn.addActionListener(this::insertAction);
 
-        jBackButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jBackButton.setText("Vissza");
-        jBackButton.addActionListener(this::backBtnAction);
+        backBtn.setFont(new java.awt.Font("Segoe UI", Font.PLAIN, 18)); // NOI18N
+        backBtn.setText("Vissza");
+        backBtn.addActionListener(this::backBtnAction);
 
-        jNameField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        nameField.setFont(new java.awt.Font("Segoe UI", Font.PLAIN, 18)); // NOI18N
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -58,60 +58,60 @@ public class Register extends javax.swing.JFrame {
                 layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jInfoLabel, GroupLayout.PREFERRED_SIZE, 538, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(infoLabel, GroupLayout.PREFERRED_SIZE, 538, GroupLayout.PREFERRED_SIZE)
                                         .addGroup(layout.createSequentialGroup()
                                                 .addGroup(layout.createSequentialGroup()
                                                         .addGap(21, 21, 21)
                                                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                                                .addComponent(jPasswordVerifyLabel)
-                                                                .addComponent(jNameLabel, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
-                                                                .addComponent(jPasswordLabel)))
+                                                                .addComponent(passwordVerifyLabel)
+                                                                .addComponent(nameLabel, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
+                                                                .addComponent(passwordLabel)))
                                                 .addGap(21, 21, 21)
                                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                                                        .addComponent(jPasswordField, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(jInsertButton, GroupLayout.Alignment.LEADING)
-                                                        .addComponent(jNameField, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 374, GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(passwordField, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(insertBtn, GroupLayout.Alignment.LEADING)
+                                                        .addComponent(nameField, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 374, GroupLayout.PREFERRED_SIZE)
                                                         .addGroup(GroupLayout.Alignment.LEADING, layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                                                                .addComponent(jBackButton, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
-                                                                .addComponent(jPasswordVerifyField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))))
+                                                                .addComponent(backBtn, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
+                                                                .addComponent(passwordVerifyField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))))
                                 .addGap(88, 240, Short.MAX_VALUE))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, jPasswordField, jPasswordVerifyField, jNameField);
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, passwordField, passwordVerifyField, nameField);
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, jNameLabel, jPasswordVerifyLabel, jPasswordLabel);
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, nameLabel, passwordVerifyLabel, passwordLabel);
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, jBackButton, jInsertButton);
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, backBtn, insertBtn);
 
         layout.setVerticalGroup(
                 layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                                 .addGap(29, 29, 29)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jNameLabel, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jNameField, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(nameLabel, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(nameField, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
                                 .addGap(50, 50, 50)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jPasswordLabel)
-                                        .addComponent(jPasswordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(passwordLabel)
+                                        .addComponent(passwordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                        .addComponent(jPasswordVerifyLabel)
-                                        .addComponent(jPasswordVerifyField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(passwordVerifyLabel)
+                                        .addComponent(passwordVerifyField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                                 .addGap(40, 40, 40)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jInsertButton)
-                                        .addComponent(jBackButton, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(insertBtn)
+                                        .addComponent(backBtn, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
                                         .addGap(28, 28, 28)
-                                        .addComponent(jInfoLabel)
+                                        .addComponent(infoLabel)
                                         .addGap(113, 113, 113))
                         ));
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, jPasswordField, jPasswordVerifyField, jNameField);
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, passwordField, passwordVerifyField, nameField);
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, jNameLabel, jPasswordVerifyLabel, jPasswordLabel);
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, nameLabel, passwordVerifyLabel, passwordLabel);
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, jBackButton, jInsertButton);
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, backBtn, insertBtn);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -123,20 +123,20 @@ public class Register extends javax.swing.JFrame {
     }
 
     private void insertAction(ActionEvent evt) {
-        jInfoLabel.setText("");
+        infoLabel.setText("");
 
-        String name = jNameField.getText();
-        String password = String.valueOf(jPasswordField.getPassword());
-        String passwordVerify = String.valueOf(jPasswordVerifyField.getPassword());
+        String name = nameField.getText();
+        String password = String.valueOf(passwordField.getPassword());
+        String passwordVerify = String.valueOf(passwordVerifyField.getPassword());
 
         if (name.contains(" ")) {
-            jInfoLabel.setText("A név nem tartalmazhat szóközt!");
+            infoLabel.setText("A név nem tartalmazhat szóközt!");
             return;
         } else if (name.isBlank() || password.isBlank() || passwordVerify.isBlank()) {
-            jInfoLabel.setText("Minden mezőt ki kell tölteni!");
+            infoLabel.setText("Minden mezőt ki kell tölteni!");
             return;
         } else if (!password.equals(passwordVerify)) {
-            jInfoLabel.setText("A két jelszó nem egyezik meg!");
+            infoLabel.setText("A két jelszó nem egyezik meg!");
             return;
         } else if (Login.userExists(name)) {
             JOptionPane.showMessageDialog(null,
@@ -171,15 +171,8 @@ public class Register extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(() -> new Register().setVisible(true));
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBackButton;
-    private javax.swing.JButton jInsertButton;
-    private javax.swing.JLabel jInfoLabel;
-    private javax.swing.JLabel jNameLabel;
-    private javax.swing.JLabel jPasswordVerifyLabel;
-    private javax.swing.JLabel jPasswordLabel;
-    private javax.swing.JPasswordField jPasswordField;
-    private javax.swing.JPasswordField jPasswordVerifyField;
-    private javax.swing.JTextField jNameField;
-    // End of variables declaration//GEN-END:variables
+    private javax.swing.JLabel infoLabel;
+    private javax.swing.JPasswordField passwordField;
+    private javax.swing.JPasswordField passwordVerifyField;
+    private javax.swing.JTextField nameField;
 }

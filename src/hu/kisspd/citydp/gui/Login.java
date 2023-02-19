@@ -31,88 +31,113 @@ public class Login extends javax.swing.JFrame {
         });
     }
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
-
-        jNameLabel = new JLabel();
-        jPasswordLabel = new JLabel();
-        jNameField = new JTextField();
+        JPanel mainPanel = new JPanel();
+        JLabel nameLabel = new JLabel();
+        JLabel passwordLabel = new JLabel();
+        nameField = new JTextField();
         jPasswordField = new JPasswordField();
-        jLoginButton = new JButton();
-        jRegisterButton = new JButton();
+        JButton loginBtn = new JButton();
+        JButton registerBtn = new JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        var contentPane = getContentPane();
 
-        jNameLabel.setFont(new Font("Dialog", Font.BOLD, 18)); // NOI18N
-        jNameLabel.setText("Felhasználónév:");
+        {
+            mainPanel.setBorder(new javax.swing.border.CompoundBorder(new javax.swing.border.TitledBorder(new javax.swing.
+            border.EmptyBorder(0,0,0,0), "JFormDesigner Evaluation",javax.swing.border.TitledBorder.CENTER
+            ,javax.swing.border.TitledBorder.BOTTOM,new java.awt.Font("Dialog",java.awt.Font
+            .BOLD,12),java.awt.Color.red), mainPanel. getBorder()));
+            mainPanel. addPropertyChangeListener(
+                    e -> {if("border"
+                    .equals(e.getPropertyName()))throw new RuntimeException();});
 
-        jPasswordLabel.setFont(new Font("Dialog", Font.BOLD, 18)); // NOI18N
-        jPasswordLabel.setText("Jelszó:");
+            nameLabel.setFont(new Font(Font.DIALOG, Font.BOLD, 18));
+            nameLabel.setText("Felhasználónév:");
 
-        jNameField.setFont(new Font("Dialog", Font.PLAIN, 18)); // NOI18N
+            passwordLabel.setFont(new Font(Font.DIALOG, Font.BOLD, 18));
+            passwordLabel.setText("Jelszó:");
 
-        jPasswordField.setFont(new Font("Dialog", Font.PLAIN, 18)); // NOI18N
+            nameField.setFont(new Font(Font.DIALOG, Font.PLAIN, 18));
 
-        jLoginButton.setFont(new Font("Dialog", Font.PLAIN, 18)); // NOI18N
-        jLoginButton.setText("Belépés");
-        jLoginButton.addActionListener(evt -> loginAction());
+            jPasswordField.setFont(new Font(Font.DIALOG, Font.PLAIN, 18));
 
-        jRegisterButton.setFont(new Font("Segoe UI", Font.PLAIN, 18)); // NOI18N
-        jRegisterButton.setText("Új felhasználó");
-        jRegisterButton.addActionListener(this::registerAction);
+            loginBtn.setFont(new Font(Font.DIALOG, Font.PLAIN, 18));
+            loginBtn.setText("Belépés");
+            loginBtn.addActionListener(e -> loginAction());
 
-        GroupLayout layout = new GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addGap(59, 59, 59)
-                                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                                        .addComponent(jNameLabel)
-                                                        .addComponent(jPasswordLabel))
-                                                .addGap(47, 47, 47))
-                                        .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                .addContainerGap()
-                                                .addComponent(jRegisterButton, GroupLayout.PREFERRED_SIZE, 184, GroupLayout.PREFERRED_SIZE)
-                                                .addGap(31, 31, 31)))
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jLoginButton, GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE)
-                                        .addComponent(jNameField, GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE)
-                                        .addComponent(jPasswordField))
-                                .addContainerGap(181, Short.MAX_VALUE))
+            registerBtn.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+            registerBtn.setText("Új felhasználó");
+            registerBtn.addActionListener(this::registerAction);
+
+            GroupLayout jPanel1Layout = new GroupLayout(mainPanel);
+            mainPanel.setLayout(jPanel1Layout);
+            jPanel1Layout.setHorizontalGroup(
+                jPanel1Layout.createParallelGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup()
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(59, 59, 59)
+                                .addGroup(jPanel1Layout.createParallelGroup()
+                                    .addComponent(nameLabel)
+                                    .addComponent(passwordLabel))
+                                .addGap(47, 47, 47))
+                            .addGroup(GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(registerBtn, GroupLayout.PREFERRED_SIZE, 184, GroupLayout.PREFERRED_SIZE)
+                                .addGap(31, 31, 31)))
+                        .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                            .addComponent(loginBtn, GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE)
+                            .addComponent(nameField, GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE)
+                            .addComponent(jPasswordField))
+                        .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            );
+            jPanel1Layout.setVerticalGroup(
+                jPanel1Layout.createParallelGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                            .addComponent(nameLabel)
+                            .addComponent(nameField, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE))
+                        .addGap(52, 52, 52)
+                        .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                            .addComponent(passwordLabel)
+                            .addComponent(jPasswordField, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE))
+                        .addGap(55, 55, 55)
+                        .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                            .addComponent(loginBtn, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(registerBtn, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(59, Short.MAX_VALUE))
+            );
+        }
+
+        GroupLayout contentPaneLayout = new GroupLayout(contentPane);
+        contentPane.setLayout(contentPaneLayout);
+        contentPaneLayout.setHorizontalGroup(
+            contentPaneLayout.createParallelGroup()
+                .addComponent(mainPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addGap(39, 39, 39)
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jNameLabel)
-                                        .addComponent(jNameField, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE))
-                                .addGap(52, 52, 52)
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jPasswordLabel)
-                                        .addComponent(jPasswordField, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE))
-                                .addGap(55, 55, 55)
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLoginButton, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jRegisterButton, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap(122, Short.MAX_VALUE))
+        contentPaneLayout.setVerticalGroup(
+            contentPaneLayout.createParallelGroup()
+                .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
+                    .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(mainPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap())
         );
-
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+        setLocationRelativeTo(getOwner());
+    }// </editor-fold>
 
     private void loginAction() {
-        String name = jNameField.getText();
+        String name = nameField.getText();
         String password = String.valueOf(jPasswordField.getPassword());
 
         /* debug mode */
         if (name.isBlank() && password.isBlank()) {
             loggedIn = true;
             username = "debug";
-            EventQueue.invokeLater(() -> new MainMenu().setVisible(true));
+            EventQueue.invokeLater(() -> MainScreen.main(null));
             this.dispose();
             return;
         }
@@ -128,7 +153,7 @@ public class Login extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null,
                         "Sikeres bejelentkezés!");
 
-                EventQueue.invokeLater(() -> new MainMenu().setVisible(true));
+                EventQueue.invokeLater(() -> MainScreen.main(null));
                 this.dispose();
             } else {
                 JOptionPane.showMessageDialog(null,
@@ -207,12 +232,6 @@ public class Login extends javax.swing.JFrame {
         EventQueue.invokeLater(() -> new Login().setVisible(true));
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private JButton jLoginButton;
-    private JButton jRegisterButton;
-    private JLabel jNameLabel;
-    private JLabel jPasswordLabel;
-    private JTextField jNameField;
+    private JTextField nameField;
     private JPasswordField jPasswordField;
-    // End of variables declaration//GEN-END:variables
 }

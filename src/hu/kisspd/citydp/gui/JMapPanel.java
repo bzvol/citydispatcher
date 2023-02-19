@@ -3,12 +3,11 @@ package hu.kisspd.citydp.gui;
 import hu.kisspd.citydp.MySQLConn;
 import hu.kisspd.citydp.Util;
 import hu.kisspd.citydp.model.City;
-import hu.kisspd.citydp.model.CityType;
 import hu.kisspd.citydp.model.Line;
-import hu.kisspd.citydp.model.VehicleType;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.QuadCurve2D;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -16,8 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class
-JMapPanel extends JPanel {
+public class JMapPanel extends JPanel {
     private final HashMap<Integer, City> cities = new HashMap<>();
     private final HashMap<Integer, Line> lines = new HashMap<>();
 
@@ -30,6 +28,13 @@ JMapPanel extends JPanel {
         loadLines();
         revalidate();
         repaint();
+    }
+
+    @Override
+    public Dimension getPreferredSize() {
+        // keep 2:1 ratio
+        int size = Math.min(getWidth(), getHeight());
+        return new Dimension(size, size / 2);
     }
 
     private void loadCities() {
@@ -79,6 +84,17 @@ JMapPanel extends JPanel {
             double controlX = controlPoint[0], controlY = controlPoint[1];
 
             g2d.draw(new QuadCurve2D.Double(x1, y1, controlX, controlY, x2, y2));
+
+            // draw an arrow string (->) on the control point, angled to the direction of the line
+            double angle = Math.atan2(y2 - y1, x2 - x1);
+            Font font = new Font("JetBrains Mono", Font.PLAIN, 30);
+            AffineTransform affineTransform = new AffineTransform();
+            affineTransform.rotate(angle, 0, 0);
+            Font rotatedFont = font.deriveFont(affineTransform);
+            g2d.setFont(rotatedFont);
+            g2d.setColor(Color.BLACK);
+            int[] centeredPos = Util.centerText((int) controlX, (int) controlY, "->", g2d.getFontMetrics(rotatedFont));
+            g2d.drawString("->", centeredPos[0], centeredPos[1]);
         }
 
         g.setColor(Color.BLACK);
