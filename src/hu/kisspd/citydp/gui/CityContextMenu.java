@@ -107,7 +107,7 @@ public class CityContextMenu extends JPopupMenu {
                 var path = Shared.shortestPath(cityFrom, cityTo);
 
                 if (path == null) {
-                    Util.showWarning("Nem található útvonal a két város között!");
+                    Util.showWarning("Nem található útvonal a két város között!", null);
                 } else {
                     mapPanel.setAStarPath(path);
                 }

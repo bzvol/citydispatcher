@@ -107,4 +107,25 @@ class ContextMenu extends JPopupMenu {
         String filePath = folderPath + fileName;
         JsonSaver.saveData(filePath);
     }
+
+    public void loadDataAction(ActionEvent evt) {
+        if (Shared.getMapPanel().getCityCount() > 0) {
+            int confirm = JOptionPane.showConfirmDialog(null,
+                    "A betöltés törli az eddigi adatokat. El akarod menteni?",
+                    "Adatok betöltése", JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) {
+                saveDataAction(evt);
+            }
+        }
+
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Adatok betöltése");
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        int result = fileChooser.showOpenDialog(null);
+        if (result != JFileChooser.APPROVE_OPTION || fileChooser.getSelectedFile() == null) {
+            return;
+        }
+
+        JsonSaver.loadData(fileChooser.getSelectedFile());
+    }
 }

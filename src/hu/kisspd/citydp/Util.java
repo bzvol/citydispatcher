@@ -11,15 +11,24 @@ public class Util {
     }
 
     public static void showError(String message, Exception e) {
+        if (e != null) {
+            message += " " + e.getMessage();
+        }
         JOptionPane.showMessageDialog(null,
-                message + " " + e.getMessage(),
+                message,
                 "Hiba", JOptionPane.ERROR_MESSAGE);
     }
 
-    public static void showWarning(String message) {
+    public static void showDBError(Exception e) {
+        JOptionPane.showMessageDialog(null,
+                "Adatbázis hiba: " + e.getMessage(),
+                "Hiba", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public static void showWarning(String message, String title) {
         JOptionPane.showMessageDialog(null,
                 message,
-                "Figyelmeztetés", JOptionPane.WARNING_MESSAGE);
+                title != null ? title : "Figyelmeztetés", JOptionPane.WARNING_MESSAGE);
     }
 
     public static <T> boolean containsArray(ArrayList<T[]> list, T[] item) {

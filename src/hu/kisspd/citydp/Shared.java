@@ -115,4 +115,14 @@ public class Shared {
 
         return pathfinder.search();
     }
+
+    public static void syncDBToMap() {
+        // TODO: implement
+        // remove all data from map, and load from DB
+    }
+
+    public static void syncMapToDB() {
+        // TODO: implement
+        // remove all data from DB, and upload from map
+    }
 }

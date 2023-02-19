@@ -15,6 +15,8 @@ School assignment of Péter Kiss.
 - [x] Implement creating lines between cities 01/27
 - [x] Refactor cities and lines from ArrayList to HashMap 01/27
 - [x] Fix cities' locations on screen 01/27
+- [x] Add info label to main screen 02/18
+- [x] Refactor JOptionPane.showMessageDialog to Util.showError & Util.showWarning 02/19
 
 ### Working on
 - [ ] Improve line creation
@@ -25,14 +27,16 @@ School assignment of Péter Kiss.
 - [ ] Implement data saving & loading
   - [x] Implement json saving
   - [ ] Implement json loading
+- [ ] Migrate NetBeans forms to IntelliJ forms
 
 ### To do
-- [ ] Refactor JOptionPane.showMessagDialog to Util.showError & Util.showWarning
-- [ ] Add info label to main menu
-- [ ] Migrate NetBeans forms to IntelliJ forms
 - [ ] Fix Ant debug target
 - [ ] Implement statistics form for cities
 - [ ] Add game templates e.g. map of Hungary - border + larger cities
+- [ ] Replace A* with Dijkstra's algorithm
+  - ***Why?*** *Though A\* is faster, it does not guarantee to find the shortest path, while Dijkstra's algorithm does.*
+- [ ] Implement syncing from DB to map, and vice versa
+  - [ ] *(after)* Sync data to DB when loading from json
 
 ## Assignment requirements
 - [x] Implement adjacency matrix

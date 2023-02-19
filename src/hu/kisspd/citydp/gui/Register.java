@@ -1,10 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package hu.kisspd.citydp.gui;
 
 import hu.kisspd.citydp.MySQLConn;
+import hu.kisspd.citydp.Util;
 
 import java.awt.*;
 import javax.swing.*;
@@ -139,9 +136,7 @@ public class Register extends javax.swing.JFrame {
             infoLabel.setText("A két jelszó nem egyezik meg!");
             return;
         } else if (Login.userExists(name)) {
-            JOptionPane.showMessageDialog(null,
-                    "A felhasználó már létezik!",
-                    "Létező felhasználó", JOptionPane.WARNING_MESSAGE);
+            Util.showWarning("A felhasználó már létezik!", "Létező felhasználó");
             return;
         }
 

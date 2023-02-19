@@ -5,10 +5,10 @@ import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
 import hu.kisspd.citydp.MySQLConn;
 import hu.kisspd.citydp.Shared;
+import hu.kisspd.citydp.Util;
 import hu.kisspd.citydp.model.City;
 
 import javax.swing.*;
-import javax.swing.border.TitledBorder;
 import javax.swing.plaf.FontUIResource;
 import javax.swing.text.StyleContext;
 import java.awt.*;
@@ -37,9 +37,7 @@ public class MainScreen {
                 try {
                     MySQLConn.disconnectDB();
                 } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null,
-                            "Nem sikerült a kapcsolat bezárása!" + e.getMessage(),
-                            "Hiba", JOptionPane.ERROR_MESSAGE);
+                    Util.showError("Nem sikerült a kapcsolat bezárása!", e);
                 }
             }
         });

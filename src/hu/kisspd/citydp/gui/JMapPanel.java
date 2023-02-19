@@ -186,6 +186,10 @@ public class JMapPanel extends JPanel {
         this.repaint();
     }
 
+    public int getCityCount() {
+        return cities.size();
+    }
+
     /*public List<City> getAStarPath() {
         return aStarPath;
     }*/

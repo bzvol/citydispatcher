@@ -8,6 +8,7 @@ import hu.kisspd.citydp.model.City;
 import hu.kisspd.citydp.model.Line;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.HashSet;
 import java.util.stream.Collectors;
@@ -42,6 +43,26 @@ public class JsonSaver {
             writer.write(gson.toJson(json));
         } catch (Exception e) {
             Util.showError("Nem sikerült menteni a fájlt!", e);
+        }
+    }
+
+    public static void loadData(File file) {
+        try (var reader = new FileReader(file)) {
+            var json = new Gson().fromJson(reader, JsonObject.class);
+            var json_cities = json.getAsJsonArray("cities");
+            var json_lines = json.getAsJsonArray("lines");
+
+            for (var json_city : json_cities) {
+                City city = City.fromJson(json_city.getAsJsonObject());
+                Shared.getMapPanel().addCity(city);
+            }
+
+            for (var json_line : json_lines) {
+                Line line = Line.fromJson(json_line.getAsJsonObject());
+                Shared.getMapPanel().addLine(line);
+            }
+        } catch (Exception e) {
+            Util.showError("Nem sikerült betölteni a fájlt!", e);
         }
     }
 }

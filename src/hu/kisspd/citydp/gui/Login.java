@@ -1,11 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package hu.kisspd.citydp.gui;
 
 import hu.kisspd.citydp.MySQLConn;
+import hu.kisspd.citydp.Util;
 
 import javax.swing.*;
 import java.awt.*;
@@ -156,14 +152,10 @@ public class Login extends javax.swing.JFrame {
                 EventQueue.invokeLater(() -> MainScreen.main(null));
                 this.dispose();
             } else {
-                JOptionPane.showMessageDialog(null,
-                        "Hibás felhasználónév vagy jelszó!",
-                        "Hiba", JOptionPane.ERROR_MESSAGE);
+                Util.showError("Hibás felhasználónév vagy jelszó!", null);
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null,
-                    "Adatbázis hiba: " + e.getMessage(),
-                    "Hiba", JOptionPane.ERROR_MESSAGE);
+            Util.showDBError(e);
         }
     }
 
@@ -177,9 +169,7 @@ public class Login extends javax.swing.JFrame {
             }
         }
         catch (Exception e) {
-            JOptionPane.showMessageDialog(null,
-                    "Adatbázis hiba: " + e.getMessage(),
-                    "Hiba", JOptionPane.ERROR_MESSAGE);
+            Util.showDBError(e);
         }
 
         MySQLConn.disconnectDB();
@@ -198,9 +188,7 @@ public class Login extends javax.swing.JFrame {
             }
         }
         catch (Exception e) {
-            JOptionPane.showMessageDialog(null,
-                    "Adatbázis hiba: " + e.getMessage(),
-                    "Hiba", JOptionPane.ERROR_MESSAGE);
+            Util.showDBError(e);
         }
 
         MySQLConn.disconnectDB();
