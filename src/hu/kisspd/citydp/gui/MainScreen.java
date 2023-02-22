@@ -20,10 +20,9 @@ import java.util.Locale;
 
 public class MainScreen {
     private JLabel infoLabel;
-    private JButton exbtn1;
-    private JButton exbtn2;
     private JPanel mainPanel;
     private JMapPanel mapPanel;
+    private JPanel btnWrapper;
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("MainScreen");
@@ -47,7 +46,7 @@ public class MainScreen {
     }
 
     private void mapPanelClickAction(MouseEvent evt) {
-        if (Shared.isCreatingLine() || !SwingUtilities.isRightMouseButton(evt)) {
+        if (Shared.canInteractMap() || !SwingUtilities.isRightMouseButton(evt)) {
             return;
         }
 
@@ -69,6 +68,8 @@ public class MainScreen {
         $$$setupUI$$$();
 
         Shared.setMapPanel(mapPanel);
+        Shared.setInfoLabel(infoLabel);
+        Shared.setBtnWrapperPanel(btnWrapper);
         mapPanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -106,15 +107,9 @@ public class MainScreen {
         panel1.add(spacer3, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, 1, new Dimension(15, -1), new Dimension(15, -1), null, 0, false));
         final Spacer spacer4 = new Spacer();
         panel1.add(spacer4, new GridConstraints(0, 3, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, 1, new Dimension(15, -1), new Dimension(15, -1), null, 0, false));
-        final JPanel panel2 = new JPanel();
-        panel2.setLayout(new GridLayoutManager(1, 2, new Insets(0, 0, 0, 0), 8, -1));
-        panel1.add(panel2, new GridConstraints(0, 2, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
-        exbtn1 = new JButton();
-        exbtn1.setText("Button");
-        panel2.add(exbtn1, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        exbtn2 = new JButton();
-        exbtn2.setText("Button");
-        panel2.add(exbtn2, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        btnWrapper = new JPanel();
+        btnWrapper.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), 8, -1));
+        panel1.add(btnWrapper, new GridConstraints(0, 2, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         mapPanel = new JMapPanel();
         mapPanel.setBackground(new Color(-6624769));
         mapPanel.setEnabled(true);

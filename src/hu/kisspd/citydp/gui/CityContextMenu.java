@@ -19,6 +19,11 @@ public class CityContextMenu extends JPopupMenu {
         this.city = city;
         this.mapPanel = Shared.getMapPanel();
 
+        JMenuItem nameItem = new JMenuItem(city.getName());
+        nameItem.setEnabled(false);
+        add(nameItem);
+        addSeparator();
+
         JMenuItem statisticsBtn = new JMenuItem("Statisztika");
         JMenuItem addLineBtn = new JMenuItem("Vonal létrehozása...");
         JMenuItem deleteBtn = new JMenuItem("Város törlése");
@@ -36,13 +41,15 @@ public class CityContextMenu extends JPopupMenu {
     }
 
     private void addLine() {
-        Shared.setCreatingLine(true);
+        Shared.setCanInteractMap(true);
 
         Line line = Line.fromDialog(this.city);
         if (line == null) {
-            Shared.setCreatingLine(false);
+            Shared.setCanInteractMap(false);
             return;
         }
+
+        Shared.getInfoLabel().setText("Válaszd ki a végállomást!");
 
         // Wait for the user to select the second city
         mapPanel.addMouseListener(new MouseAdapter() {
@@ -70,7 +77,8 @@ public class CityContextMenu extends JPopupMenu {
                 }
 
                 mapPanel.removeMouseListener(this);
-                Shared.setCreatingLine(false);
+                Shared.setCanInteractMap(false);
+                Shared.getInfoLabel().setText("");
             }
         });
     }
@@ -90,7 +98,8 @@ public class CityContextMenu extends JPopupMenu {
     private void shortestPathAction() {
         City cityFrom = city;
 
-        Shared.setCreatingLine(true);
+        Shared.setCanInteractMap(true);
+        Shared.getInfoLabel().setText("Válaszd ki a végpontot!");
         mapPanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -111,7 +120,8 @@ public class CityContextMenu extends JPopupMenu {
                 }
 
                 mapPanel.removeMouseListener(this);
-                Shared.setCreatingLine(false);
+                Shared.setCanInteractMap(false);
+                Shared.getInfoLabel().setText("");
             }
         });
     }

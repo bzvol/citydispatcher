@@ -61,12 +61,27 @@ public class JMapPanel extends JPanel {
         }
     }
 
+    public void reloadMap() {
+        cities.clear();
+        lines.clear();
+        loadCities();
+        loadLines();
+        revalidate();
+        repaint();
+    }
+
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
         Graphics2D g2d = (Graphics2D) g;
 
+        drawLines(g2d);
+        drawCities(g);
+        drawAStarPath(g2d);
+    }
+
+    private void drawLines(Graphics2D g2d) {
         ArrayList<Double[]> controlPoints = new ArrayList<>();
         for (Line line : lines.values()) {
             City cityFrom = line.getCityFrom();
@@ -86,10 +101,12 @@ public class JMapPanel extends JPanel {
 
             g2d.draw(new QuadCurve2D.Double(x1, y1, controlX, controlY, x2, y2));
 
-            drawLineArrow(new int[] {x1, y1}, new int[] {(int) controlX, (int) controlY},
-                    new int[] {x2, y2}, g2d);
+            drawLineArrow(new int[]{x1, y1}, new int[]{(int) controlX, (int) controlY},
+                    new int[]{x2, y2}, g2d);
         }
+    }
 
+    private void drawCities(Graphics g) {
         g.setColor(Color.BLACK);
         for (City city : cities.values()) {
             int radius = city.getType().getRadius();
@@ -99,7 +116,9 @@ public class JMapPanel extends JPanel {
 
             g.fillOval(x, y, size, size);
         }
+    }
 
+    private void drawAStarPath(Graphics2D g2d) {
         if (aStarPath != null) {
             for (int i = 0; i < aStarPath.size() - 1; i++) {
                 Stroke dashed = new BasicStroke(2, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL,
@@ -131,20 +150,20 @@ public class JMapPanel extends JPanel {
 
         double controlX = (x1 + x2) / 2.0 + Math.cos(angle) * shift;
         double controlY = (y1 + y2) / 2.0 + Math.sin(angle) * shift;
-        while (Util.containsArray(controlPoints, new Double[] {controlX, controlY})) {
+        while (Util.containsArray(controlPoints, new Double[]{controlX, controlY})) {
             shift *= 1.2;
             controlX = (x1 + x2) / 2.0 + Math.cos(angle) * shift;
             controlY = (y1 + y2) / 2.0 + Math.sin(angle) * shift;
         }
 
-        return new Double[] {controlX, controlY};
+        return new Double[]{controlX, controlY};
     }
 
     @SuppressWarnings({"unchecked", "rawtypes"})
     private void drawLineArrow(int[] p1, int[] controlPoint, int[] p2, Graphics2D g2d) {
-        int[] arrowPos = Util.lerpPoint(Util.lerpPoint(p1, controlPoint, 0.5f), Util.lerpPoint(controlPoint, p2, 0.5f), 0.5f);
+        int[] arrowPos = Util.quadLerpPoint(p1, controlPoint, p2, 0.5f);
 
-        Font font = new Font("JetBrains Mono", Font.BOLD, 24);
+        Font font = new Font("Arial", Font.BOLD, 20);
 
         Map attributes = font.getAttributes();
         attributes.put(TextAttribute.LIGATURES, TextAttribute.LIGATURES_ON);
@@ -152,21 +171,32 @@ public class JMapPanel extends JPanel {
 
         int x1 = p1[0], y1 = p1[1], x2 = p2[0], y2 = p2[1];
         double angle = Math.atan2(y2 - y1, x2 - x1);
-        AffineTransform affineTransform = new AffineTransform();
-        affineTransform.rotate(angle, 0, 0);
+        AffineTransform transform = new AffineTransform();
+        transform.rotate(angle, 0, 0);
 
-        Font rotatedFont = fontWithLigatures.deriveFont(affineTransform);
+        Font rotatedFont = fontWithLigatures.deriveFont(transform);
         g2d.setFont(rotatedFont);
         g2d.setColor(Color.BLACK);
 
-        int[] centeredPos = Util.centerText(arrowPos[0], arrowPos[1], "0A0A", g2d.getFontMetrics(rotatedFont));
-        g2d.drawString("0A0A", centeredPos[0], centeredPos[1]);
-        // draw a little red dot on the pos
-        g2d.setColor(Color.RED);
-        g2d.fillOval(centeredPos[0] - 5, centeredPos[1] - 5, 10, 10);
-        // on lerped pos
-        g2d.setColor(Color.BLUE);
-        g2d.fillOval(arrowPos[0] - 5, arrowPos[1] - 5, 10, 10);
+        int[] centeredPos = Util.centerText(arrowPos[0], arrowPos[1], "-->",
+                g2d.getFontMetrics(fontWithLigatures), transform);
+        g2d.drawString("-->", centeredPos[0], centeredPos[1]);
+    }
+
+    public City searchNearbyCity(double x, double y) {
+        double searchGap = 3.0 / this.getWidth();
+
+        for (City city : cities.values()) {
+            double cityX = city.getLocX(), cityY = city.getLocY();
+            double distX = Math.abs(cityX - x), distY = Math.abs(cityY - y);
+            double citySize = (double) city.getType().getSize() / this.getWidth();
+
+            if (distX <= citySize + searchGap && distY <= citySize + searchGap) {
+                return city;
+            }
+        }
+
+        return null;
     }
 
     public Map<Integer, City> getCities() {
@@ -212,29 +242,9 @@ public class JMapPanel extends JPanel {
         return cities.size();
     }
 
-    /*public List<City> getAStarPath() {
-        return aStarPath;
-    }*/
-
     public void setAStarPath(List<City> aStarPath) {
         this.aStarPath = new ArrayList<>(aStarPath);
         this.revalidate();
         this.repaint();
-    }
-
-    public City searchNearbyCity(double x, double y) {
-        double searchGap = 3.0 / this.getWidth();
-
-        for (City city : cities.values()) {
-            double cityX = city.getLocX(), cityY = city.getLocY();
-            double distX = Math.abs(cityX - x), distY = Math.abs(cityY - y);
-            double citySize = (double) city.getType().getSize() / this.getWidth();
-
-            if (distX <= citySize + searchGap && distY <= citySize + searchGap) {
-                return city;
-            }
-        }
-
-        return null;
     }
 }

@@ -4,15 +4,20 @@ import hu.kisspd.citydp.gui.JMapPanel;
 import hu.kisspd.citydp.model.City;
 import hu.kisspd.citydp.model.Line;
 
+import javax.swing.*;
 import java.util.*;
 
 public class Shared {
     private static JMapPanel mapPanel;
-    private static boolean isCreatingLine = false;
+    private static boolean canInteractMap = false;
 
     private static Set<City> temporaryCitySet = new HashSet<>();
     private static Set<Line> temporaryLineSet = new HashSet<>();
 
+    private static JLabel infoLabel;
+    private static JPanel btnWrapperPanel;
+
+    //<editor-fold desc="Getters and setters">
     public static JMapPanel getMapPanel() {
         return mapPanel;
     }
@@ -21,12 +26,12 @@ public class Shared {
         Shared.mapPanel = mapPanel;
     }
 
-    public static boolean isCreatingLine() {
-        return isCreatingLine;
+    public static boolean canInteractMap() {
+        return canInteractMap;
     }
 
-    public static void setCreatingLine(boolean isCreatingLine) {
-        Shared.isCreatingLine = isCreatingLine;
+    public static void setCanInteractMap(boolean canInteractMap) {
+        Shared.canInteractMap = canInteractMap;
     }
 
     public static Set<City> getTemporaryCitySet() {
@@ -44,6 +49,23 @@ public class Shared {
     public static void setTemporaryLineSet(Set<Line> temporaryLineSet) {
         Shared.temporaryLineSet = temporaryLineSet;
     }
+
+    public static JLabel getInfoLabel() {
+        return infoLabel;
+    }
+
+    public static void setInfoLabel(JLabel infoLabel) {
+        Shared.infoLabel = infoLabel;
+    }
+
+    public static JPanel getBtnWrapperPanel() {
+        return btnWrapperPanel;
+    }
+
+    public static void setBtnWrapperPanel(JPanel btnWrapperPanel) {
+        Shared.btnWrapperPanel = btnWrapperPanel;
+    }
+    //</editor-fold>
 
     @SuppressWarnings("unused")
     public static int[][] getAdjacencyMatrix() {

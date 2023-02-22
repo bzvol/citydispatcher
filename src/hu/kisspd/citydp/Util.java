@@ -2,6 +2,7 @@ package hu.kisspd.citydp;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -41,11 +42,25 @@ public class Util {
         // TODO: respect font transform!!!
     }
 
+    public static int[] centerText(int x, int y, String text, FontMetrics fm, AffineTransform transform) {
+        int textWidth = fm.stringWidth(text);
+        int textHeight = fm.getHeight();
+
+        Shape shape = transform.createTransformedShape(fm.getStringBounds(text, null));
+        Rectangle bounds = shape.getBounds();
+
+        int centerX = x - bounds.width / 2 + textWidth / 2;
+        int centerY = y + bounds.height / 2 - textHeight / 2;
+        return new int[]{centerX, centerY};
+    }
+
     public static int[] lerpPoint(int[] a, int[] b, float t) {
         return new int[]{(int) (a[0] + (b[0] - a[0]) * t), (int) (a[1] + (b[1] - a[1]) * t)};
     }
 
-    public static double[] lerpPoint(double[] a, double[] b, float t) {
-        return new double[]{a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t};
+    public static int[] quadLerpPoint(int[] p1, int[] controlPoint, int[] p2, float t) {
+        int[] lerp1 = lerpPoint(p1, controlPoint, t);
+        int[] lerp2 = lerpPoint(controlPoint, p2, t);
+        return lerpPoint(lerp1, lerp2, t);
     }
 }
