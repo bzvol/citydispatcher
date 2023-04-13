@@ -3,48 +3,101 @@ package hu.kisspd.citydp.gui;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
+import hu.kisspd.citydp.MySQLConn;
+import hu.kisspd.citydp.Util;
+import hu.kisspd.citydp.gui.component.JPrettyButton;
 import hu.kisspd.citydp.gui.component.JPrettyPasswordField;
 import hu.kisspd.citydp.gui.component.JPrettyTextField;
 
 import javax.swing.*;
+import javax.swing.border.CompoundBorder;
 import javax.swing.plaf.FontUIResource;
 import javax.swing.text.StyleContext;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.util.Locale;
+import java.util.function.BiFunction;
+import java.util.function.Function;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 
 public class RegisterScreen {
     private JPanel mainPanel;
-    private JButton loginBtn;
     private JPrettyTextField nameField;
     private JPrettyPasswordField passwordField;
     private JPrettyPasswordField passwordAgainField;
+    private JPrettyButton loginBtn;
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Regisztráció");
         frame.setContentPane(new RegisterScreen().mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        Util.centerFrame(frame);
         frame.pack();
         frame.setVisible(true);
     }
 
+    private static CompoundBorder border(int borderSize, JComponent component) {
+        return BorderFactory.createCompoundBorder(component.getBorder(),
+                BorderFactory.createEmptyBorder(borderSize, borderSize, borderSize, borderSize));
+    }
+
     private void createUIComponents() {
+        int arcSize = 30;
+
         nameField = new JPrettyTextField();
-        nameField.setBorder(BorderFactory.createCompoundBorder(nameField.getBorder(), BorderFactory.createEmptyBorder(4, 4, 4, 4)));
-        nameField.setArcSize(24);
+        nameField.setBorder(border(4, nameField));
+        nameField.setArcSize(arcSize);
         nameField.setFont($$$getFont$$$(null, -1, 18, nameField.getFont()));
         nameField.setPlaceholder("Név");
 
         passwordField = new JPrettyPasswordField();
-        passwordField.setBorder(BorderFactory.createCompoundBorder(passwordField.getBorder(), BorderFactory.createEmptyBorder(4, 4, 4, 4)));
-        passwordField.setArcSize(24);
+        passwordField.setBorder(border(4, passwordField));
+        passwordField.setArcSize(arcSize);
         passwordField.setPlaceholder("Jelszó");
         passwordField.setFont($$$getFont$$$(null, -1, 18, passwordField.getFont()));
 
         passwordAgainField = new JPrettyPasswordField();
-        passwordAgainField.setBorder(BorderFactory.createCompoundBorder(passwordAgainField.getBorder(), BorderFactory.createEmptyBorder(4, 4, 4, 4)));
-        passwordAgainField.setArcSize(24);
+        passwordAgainField.setBorder(border(4, passwordAgainField));
+        passwordAgainField.setArcSize(arcSize);
         passwordAgainField.setPlaceholder("Jelszó újra");
         passwordAgainField.setFont($$$getFont$$$(null, -1, 18, passwordAgainField.getFont()));
+
+        loginBtn = new JPrettyButton("Regisztráció");
+        loginBtn.setBorder(border(4, loginBtn));
+        loginBtn.setArcSize(arcSize);
+        loginBtn.setFont($$$getFont$$$(null, -1, 18, loginBtn.getFont()));
+        loginBtn.addActionListener(this::loginAction);
+    }
+
+    private void loginAction(ActionEvent evt) {
+        String name = nameField.getText();
+        String password = String.valueOf(passwordField.getPassword());
+        String passwordVerify = String.valueOf(passwordAgainField.getPassword());
+
+        if (name.contains(" ")) {
+            Util.showWarning("A felhasználónév nem tartalmazhat szóközt!", "Hibás felhasználónév");
+            return;
+        } else if (name.isBlank() || password.isBlank() || passwordVerify.isBlank()) {
+            Util.showWarning("Minden mező kitöltése kötelező!", "Hiányzó adat");
+            return;
+        } else if (!password.equals(passwordVerify)) {
+            Util.showWarning("A két jelszó nem egyezik!", "Hibás jelszó");
+            return;
+        } else if (Login.userExists(name)) {
+            Util.showWarning("A felhasználó már létezik!", "Létező felhasználó");
+            return;
+        }
+
+        MySQLConn.connectDB();
+        String query = String.format("INSERT INTO user (name, password) VALUES ('%s', '%s')", name, password);
+        if (MySQLConn.runStatement(query)) {
+            JOptionPane.showMessageDialog(null, "Sikeres regisztráció!");
+        }
+        MySQLConn.disconnectDB();
+
+        EventQueue.invokeLater(() -> MainScreen.main(null));
+        SwingUtilities.getWindowAncestor(mainPanel).dispose();
     }
 
     //<editor-fold desc="Generated Code">
@@ -90,15 +143,13 @@ public class RegisterScreen {
         panel1.add(spacer1, new GridConstraints(3, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         final Spacer spacer2 = new Spacer();
         panel1.add(spacer2, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
-        loginBtn = new JButton();
-        Font loginBtnFont = this.$$$getFont$$$(null, -1, 18, loginBtn.getFont());
-        if (loginBtnFont != null) loginBtn.setFont(loginBtnFont);
-        loginBtn.setText("Bejelentkezés");
-        panel1.add(loginBtn, new GridConstraints(4, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         panel1.add(nameField, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         panel1.add(passwordField, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         panel1.add(passwordAgainField, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        panel1.add(loginBtn, new GridConstraints(4, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         label1.setLabelFor(nameField);
+        label2.setLabelFor(passwordField);
+        label3.setLabelFor(passwordAgainField);
     }
 
     /**
@@ -129,5 +180,6 @@ public class RegisterScreen {
     public JComponent $$$getRootComponent$$$() {
         return mainPanel;
     }
+
     //</editor-fold>
 }

@@ -63,4 +63,13 @@ public class Util {
         int[] lerp2 = lerpPoint(controlPoint, p2, t);
         return lerpPoint(lerp1, lerp2, t);
     }
+
+    public static void centerFrame(Frame frame) {
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        int w = frame.getSize().width;
+        int h = frame.getSize().height;
+        int x = (dim.width - w) / 2;
+        int y = (dim.height - h) / 2;
+        frame.setLocation(x, y);
+    }
 }

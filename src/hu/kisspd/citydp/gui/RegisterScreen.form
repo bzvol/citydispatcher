@@ -36,6 +36,7 @@
             </constraints>
             <properties>
               <font size="18"/>
+              <labelFor value="c9caf"/>
               <text value="Jelszó"/>
             </properties>
           </component>
@@ -45,6 +46,7 @@
             </constraints>
             <properties>
               <font size="18"/>
+              <labelFor value="7df33"/>
               <text value="Jelszó ismétlése"/>
             </properties>
           </component>
@@ -58,15 +60,6 @@
               <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
             </constraints>
           </vspacer>
-          <component id="d98cd" class="javax.swing.JButton" binding="loginBtn">
-            <constraints>
-              <grid row="4" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <font size="18"/>
-              <text value="Bejelentkezés"/>
-            </properties>
-          </component>
           <component id="e6f8f" class="hu.kisspd.citydp.gui.component.JPrettyTextField" binding="nameField" custom-create="true">
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
@@ -77,11 +70,19 @@
             <constraints>
               <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
+            <properties/>
           </component>
           <component id="7df33" class="hu.kisspd.citydp.gui.component.JPrettyPasswordField" binding="passwordAgainField" custom-create="true">
             <constraints>
               <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
+            <properties/>
+          </component>
+          <component id="9e208" class="hu.kisspd.citydp.gui.component.JPrettyButton" binding="loginBtn" custom-create="true">
+            <constraints>
+              <grid row="4" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
           </component>
         </children>
       </grid>

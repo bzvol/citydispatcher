@@ -2,7 +2,7 @@
     <property name="src.dir" location="src"/>
     <property name="build.dir" location="build"/>
     <property name="dist.dir" location="dist"/>
-    <property name="main.class" value="hu.kisspd.citydp.gui.Login"/>
+    <property name="main.class" value="hu.kisspd.citydp.gui.LoginScreen"/>
 
     <path id="classpath">
         <fileset dir="lib">

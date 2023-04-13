@@ -41,6 +41,8 @@ public class MainScreen {
             }
         });
 
+//        Util.centerFrame(frame);
+
         frame.pack();
         frame.setVisible(true);
     }
