@@ -1,9 +1,11 @@
 # City Dispatcher
-School assignment of Péter Kiss.
+School assignment of Péter Domonkos Kiss.
 
 ## Description
+A program designed for planning and simulating routes between cities.
 
 ## Game guide
+Creating cities, and improving the efficiency of public transportation networks between them.
 
 ### Rules / How to play
 
